@@ -1,0 +1,86 @@
+{% extends "layout01.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block main %}
+
+        <div class="container-sm border border-primary rounded-2 text-center" style="width: 550px">
+            <form action="/dashboard" method="post">
+                <div class="row">
+                    <div class="col mx-auto" style="width: 100px">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Sort By
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item btn" type="submit">Newest</button></li>
+                                <li><button class="dropdown-item btn" type="submit">Oldest</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">        
+                        <div class="mb-3 mx-auto " style="width: 200px">
+                            <input type="text" class="form-control" placeholder="Search" name="search"> 
+                        </div>
+                    </div>
+                    <div class="col mx-auto" style="width: 100px">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                View By
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item btn" type="submit">Grid</button></li>
+                                <li><button class="dropdown-item btn" type="submit">Column</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    {% for i in messages%}        
+        <div class="container-sm border border-primary rounded-2 text-center my-3" style="width: 550px ; height: 300px">
+            <div class="row">
+                <div class="col-sm-8 border-bottom text-start">
+                    <a>{{i["username"]}}</a>
+                </div>
+                <div class="col border-bottom">
+                    <button class="btn btn-secondary" type="submit">Like</button>
+                    <button class="btn btn-secondary" type="submit">Dislike</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-start">
+                    <a>{{i["post"]}}</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <button type="button" class="btn btn-primary nav justify-content-end me-5 ms-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="pst-btn">
+        Post
+    </button>
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/send" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <textarea class="form-control" name="message"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" name="upload">Post</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>      
+{% endblock %}
