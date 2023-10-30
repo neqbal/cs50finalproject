@@ -85,9 +85,9 @@ def login():
 def dashboard():
     if request.method=="POST":
 
-        return render_template("dashboard.html", username=session["username"], )
+        return render_template("dashboard01.html", username=session["username"], )
     else:
-        return render_template("dashboard.html", username=session["username"], messages=db.execute("SELECT * FROM posts"))
+        return render_template("dashboard01.html", username=session["username"], messages=db.execute("SELECT * FROM posts"))
 
 
 @app.route("/send", methods=["POST"])

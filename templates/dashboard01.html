@@ -1,0 +1,32 @@
+{% extends "layout01.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block main %}
+    <div class="main-top">
+        <div class="main-top-container">
+            <div class="main-top-items">
+                <div class="item-1">
+                    <button class="sort-by-btn">Sort By</button>
+                    <div class="sort-by-items">
+                        <a href="/view">Liked</a>
+                        <a href="/view">Disliked</a>
+                    </div>
+                </div>
+                <div class="item-2">
+                    <form 
+                    <input class="search-bar" type="text" placeholder="Search..." name="search">
+                </div>
+                <div class="item-3">
+                    <button class="sort-by-btn">Layout</button>
+                    <div class="sort-by-items">
+                        <a href="/view">Column</a>
+                        <a href="/view">Grid</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
