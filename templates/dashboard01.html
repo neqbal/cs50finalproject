@@ -11,13 +11,16 @@
                 <div class="item-1">
                     <button class="sort-by-btn">Sort By</button>
                     <div class="sort-by-items">
-                        <a href="/liked">Liked</a>
-                        <a href="/disliked">Disliked</a>
+                        <form action="/view" method="post">
+                            <a href="/liked">Liked</a>
+                            <a href="/disliked">Disliked</a>
+                        </form>
                     </div>
                 </div>
                 <div class="item-2">
-                    
-                    <input class="search-bar" type="text" placeholder="Search..." name="search">
+                    <form action="/search" method="post">
+                        <input class="search-bar" type="text" placeholder="Search..." name="search">
+                    </form>
                 </div>
                 <div class="item-3">
                     <button class="sort-by-btn">Layout</button>
