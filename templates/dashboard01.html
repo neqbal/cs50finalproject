@@ -11,20 +11,41 @@
                 <div class="item-1">
                     <button class="sort-by-btn">Sort By</button>
                     <div class="sort-by-items">
-                        <a href="/view">Liked</a>
-                        <a href="/view">Disliked</a>
+                        <a href="/liked">Liked</a>
+                        <a href="/disliked">Disliked</a>
                     </div>
                 </div>
                 <div class="item-2">
-                    <form 
+                    
                     <input class="search-bar" type="text" placeholder="Search..." name="search">
                 </div>
                 <div class="item-3">
                     <button class="sort-by-btn">Layout</button>
                     <div class="sort-by-items">
-                        <a href="/view">Column</a>
-                        <a href="/view">Grid</a>
+                        <form action="/view" method="post">
+                            <a type="submit" name="column">Column</a>
+                            <a type="submit" name="grid">Grid</a>
+                        </form>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-middle">
+        <div class="main-middle-container">
+            <div class="main-middle-items">
+                <div class="main-middle-box-1">
+                    <div class="box-1-item-1">
+                        <a class="Name">Name</a>
+                        <a class="username">@username</a>
+                    </div>
+                </div>
+                <div class="main-middle-box-2">
+
+                </div>
+                <div class="main-middle-box-3">
+
                 </div>
             </div>
         </div>
