@@ -24,10 +24,8 @@
 
 .main-body {
     background-color:rgb(37, 35, 35);
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    height: 100vh;
+    height: max-content;
 }
 
 .main-top{
@@ -124,28 +122,35 @@
 
 .main-middle {
     width: 100%;
-    height: 100vh;
+    height: 684px;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: scroll;
+    scroll-snap-type: y-mandatory;
 }
 .main-middle-container {
-    padding: 20px;
+    padding: 2px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    width: 570px;
+    height: 375px;
+    border-color:aliceblue;
+    border-width:2px;
+    border-style: solid;
 }
 .main-middle-items {
-    width: 600px;
-    height: 600px;
-    border-color: aliceblue; 
-    border-width: 2px;
-    border-style: solid;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
     padding: 5px;
-    row-gap: 7px;
+    row-gap: 10px;
 }
 
 .main-middle-box-1 {
-    width: 585px;
+    width: 555px;
     height: 55px;
     border-style: solid;
     border-color: white;
@@ -153,19 +158,20 @@
 }
 
 .main-middle-box-2 {
-    width: 585px;
-    height: 475px;
+    width: 555px;
+    height: 425px;
     border-style: solid;
     border-color: white;
     border-width: 2px;
 }
 
 .main-middle-box-3 {
-    width: 585px;
-    height: 45px;
+    width: 555px;
+    height: 90px;
     border-style: solid;
     border-color: white;
     border-width: 2px;
+    padding: 2px;
 }
 
 .username {
@@ -179,6 +185,16 @@
 .box-1-item-1 {
     display: flex;
     flex-direction: column;
-    justify-content: left;
+    align-items:flex-start;
     padding-left: 5px
+}
+.box-3-item-1 {
+    width: 75px;
+    height: 40px;
+    padding: 2px;
+    display: flex;
+    justify-content: right;
+    border-style: solid;
+    border-color: aliceblue;
+    border-width: 2px;
 }
