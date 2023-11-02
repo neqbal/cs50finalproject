@@ -60,7 +60,7 @@
 }
 .item-3{
     width: 55px;
-    padding: 9px;
+    padding-top: 9px;
 }
 
 .sort-by-btn {
@@ -68,6 +68,7 @@
     padding: 0;
     border: none;
     color: white;
+    width: 50.15px;
 }
 
 .sort-by-items {
