@@ -1,10 +1,15 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
+from flask_socketio import SocketIO
+from threading import Lock
 from werkzeug.security import generate_password_hash, check_password_hash 
 from helpers import apology, login_required
 from datetime import datetime
 from cs50 import SQL
 
+
+thread=None
+thread_lock=Lock()
 app = Flask(__name__)
 
 
@@ -12,7 +17,7 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"]="false"
 app.config["SESSION_TYPE"]="filesystem"
 Session(app)
-
+socketio=SocketIO(app)
 
 db = SQL("sqlite:///database.db")
 
