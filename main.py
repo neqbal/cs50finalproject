@@ -21,10 +21,9 @@ cur = con.cursor()
 
 """ cur.execute('''ALTER TABLE posts ADD username TEXT ''') """
 
-cur.execute('DELETE FROM posts WHERE username = "lol" ')
+cur.execute('DELETE FROM posts WHERE username = "Joe Biden" ')
 con.commit()
 
 res=cur.execute('SELECT * FROM posts')
 for i in res:
     print(i)
-

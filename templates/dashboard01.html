@@ -33,16 +33,16 @@
     </div>
 
     <div class="main-middle">
+        {% for i in post_data %}
         <div class="main-middle-container">
-            <div class="main-middle-items">
                 <div class="main-middle-box-1">
                     <div class="box-1-item-1">
-                        <a class="Name">Name</a>
-                        <a class="username">@username</a>
+                        <a class="Name" style="color: black;">{{ i["username"] }}</a>
+                        <a class="username" style="color: black;">@username</a>
                     </div>
                 </div>
                 <div class="main-middle-box-2">
-                    <p></p>
+                    <p>{{ i["post"] }}</p>
                 </div>
                 <div class="main-middle-box-3">
                     <div class="box-3-item-1">
@@ -58,14 +58,14 @@
                         </svg>
                     </div>
                 </div>
-            </div>
         </div>
+        {% endfor %}
     </div>
 {% endblock %}
 
 {% block foot%}
     <div class="foot">
-        <form action="/search" method="post">
+        <form action="/add" method="post">
         <div class="foot-container">
             <div class="message-box">
                 <input type="textarea" autocomplete="off" font-size="16px" class="message-box" placeholder="Type something..." name="message">

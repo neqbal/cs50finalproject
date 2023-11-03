@@ -92,12 +92,12 @@ def dashboard():
 
         return render_template("dashboard01.html", username=session["username"], )
     else:
-        return render_template("dashboard01.html", username=session["username"], messages=db.execute("SELECT * FROM posts"))
+        return render_template("dashboard01.html", username=session["username"], post_data=db.execute("SELECT * FROM posts"))
 
 
-@app.route("/send", methods=["POST"])
+@app.route("/add", methods=["POST"])
 @login_required
-def send():
+def add():
     db.execute("INSERT INTO posts (id, post, uploaded, username) VALUES (?, ?, ?, ?)", session["user_id"], request.form.get("message"), datetime.now(), session["username"])
     return redirect("/dashboard")
 
