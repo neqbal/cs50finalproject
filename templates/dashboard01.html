@@ -65,3 +65,18 @@
         </div>
     </div>
 {% endblock %}
+
+{% block foot%}
+    <div class="foot">
+        <form action="/search" method="post">
+        <div class="foot-container">
+            <div class="message-box">
+                <input type="textarea" autocomplete="off" font-size="16px" class="message-box" placeholder="Type something..." name="message">
+            </div>
+            <div class="post-btn">
+                <button type="submit" class="post-btn">Post</button>
+            </div>
+        </div>
+        </form>
+    </div>
+{% endblock %}
