@@ -35,6 +35,9 @@ def register():
         #ensure username was submitted
         if not request.form.get("username"):
             return apology("enter a username")
+        #ensure name was submitted
+        elif not request.form.get("name"):
+            return apology("enter a name")
         #ensure password was submitted
         elif not request.form.get("password"):
             if not request.form.get("confirmation"):
@@ -50,7 +53,7 @@ def register():
             return apology("username not available")
         else:
             #insert user credentials into the database
-            db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", request.form.get("username"), generate_password_hash(request.form.get("password")))        
+            db.execute("INSERT INTO users (name, username, hash) VALUES (?, ?, ?)",request.form.get("name"), request.form.get("username"), generate_password_hash(request.form.get("password")))        
 
 
         return redirect("/login")
@@ -92,16 +95,19 @@ def dashboard():
 
         return render_template("dashboard01.html", username=session["username"], )
     else:
-        return render_template("dashboard01.html", username=session["username"], post_data=db.execute("SELECT * FROM posts"))
+        return render_template("dashboard01.html", post_data=db.execute("SELECT * FROM posts"))
 
 
 @app.route("/add", methods=["POST"])
 @login_required
 def add():
-    db.execute("INSERT INTO posts (id, post, uploaded, username) VALUES (?, ?, ?, ?)", session["user_id"], request.form.get("message"), datetime.now(), session["username"])
+    db.execute("INSERT INTO posts (username, post, post_time, name) VALUES (?, ?, ?, ?)", session["username"], request.form.get("message"), datetime.now(), db.execute("SELECT name FROM users WHERE username = ?", session["username"])[0]["name"])
     return redirect("/dashboard")
 
-
+@app.route("/likes", methods=["POST"])
+@login_required
+def likes():
+    return redirect("/dashboard")
 @app.route("/logout")
 def logout():
     session.clear()
