@@ -1,9 +1,12 @@
-function like() {
-  document.getElementById("like").style.display = "none";
-  document.getElementById("dislike").style.display = "block";
+function like(clicked_id) {
+  document.getElementById(clicked_id).style.display="none";
+  document.getElementById("dislike" + clicked_id.slice(4)).style.display="block";
+}
+  
+function dislike(clicked_id) {
+  document.getElementById("like" + clicked_id.slice(7)).style.display="block";
+  document.getElementById(clicked_id).style.display="none";
 }
 
-function dislike() {
-  document.getElementById("like").style.display = "block";
-  document.getElementById("dislike").style.display = "none";
-}
+
+

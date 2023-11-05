@@ -95,18 +95,23 @@ def dashboard():
 
         return render_template("dashboard01.html", username=session["username"], )
     else:
+        print("asdasdasdasdasd")
         return render_template("dashboard01.html", post_data=db.execute("SELECT * FROM posts"))
 
 
 @app.route("/add", methods=["POST"])
 @login_required
 def add():
+    print("sadasdasdasdascgabjgdsjashd")
     db.execute("INSERT INTO posts (username, post, post_time, name) VALUES (?, ?, ?, ?)", session["username"], request.form.get("message"), datetime.now(), db.execute("SELECT name FROM users WHERE username = ?", session["username"])[0]["name"])
     return redirect("/dashboard")
 
 @app.route("/likes", methods=["POST"])
 @login_required
 def likes():
+    print("ahsdjbasdnbajsdbajsbndasdkjbnas")
+    print(request.form.get("like"), request.form.get("dislike"))
+    # db.execute("INSERT INTO likes (user_id, post_id, post_user_id) VALUES (?, ?, ?)", session["user_id"], )
     return redirect("/dashboard")
 @app.route("/logout")
 def logout():
