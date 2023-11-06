@@ -106,13 +106,18 @@ def add():
     db.execute("INSERT INTO posts (username, post, post_time, name) VALUES (?, ?, ?, ?)", session["username"], request.form.get("message"), datetime.now(), db.execute("SELECT name FROM users WHERE username = ?", session["username"])[0]["name"])
     return redirect("/dashboard")
 
-@app.route("/likes", methods=["POST"])
+@app.route("/likes", methods=["GET","POST"])
 @login_required
 def likes():
-    print("ahsdjbasdnbajsdbajsbndasdkjbnas")
-    print(request.form.get("like"), request.form.get("dislike"))
     # db.execute("INSERT INTO likes (user_id, post_id, post_user_id) VALUES (?, ?, ?)", session["user_id"], )
-    return redirect("/dashboard")
+    return "1"
+
+@app.route("/dislikes", methods=["GET", "POST"])
+@login_required
+def dislikes():
+    return "0"
+
+
 @app.route("/logout")
 def logout():
     session.clear()
