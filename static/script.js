@@ -7,6 +7,7 @@ function likecounter(url, post_id) {
   }
 }
 
+
 function like(clicked_id) {
   document.getElementById(clicked_id).style.display="none";
   document.getElementById("dislike" + clicked_id.slice(4)).style.display="block";
