@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 from flask_session import Session
 from flask_socketio import SocketIO
 from threading import Lock
@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from helpers import apology, login_required
 from datetime import datetime
 from cs50 import SQL
+import json
 
 
 thread=None
@@ -96,26 +97,75 @@ def dashboard():
         return render_template("dashboard01.html", username=session["username"], )
     else:
         print("asdasdasdasdasd")
-        return render_template("dashboard01.html", post_data=db.execute("SELECT * FROM posts"))
+        post_data = db.execute("SELECT * FROM posts")
+        like = db.execute("SELECT * FROM likes WHERE user_id=?", session["user_id"])
+        post_id=[]
+        for i in like:
+            post_id.append(i["post_id"])
+        print(post_id)
+        for i in post_data:
+            if i["post_id"] in post_id:
+                i.update({"post_liked": "1"})
+            else:
+                i.update({"post_liked": "0"})
+            print(i)
+        
+        return render_template("dashboard01.html", post_data=post_data)
 
 
 @app.route("/add", methods=["POST"])
 @login_required
 def add():
     print("sadasdasdasdascgabjgdsjashd")
-    db.execute("INSERT INTO posts (username, post, post_time, name) VALUES (?, ?, ?, ?)", session["username"], request.form.get("message"), datetime.now(), db.execute("SELECT name FROM users WHERE username = ?", session["username"])[0]["name"])
+    db.execute("INSERT INTO posts (username, post, post_time, name, likes) VALUES (?, ?, ?, ?, ?)", session["username"], request.form.get("message"), datetime.now(), db.execute("SELECT name FROM users WHERE username = ?", session["username"])[0]["name"], 0)
     return redirect("/dashboard")
+
 
 @app.route("/likes", methods=["GET","POST"])
 @login_required
 def likes():
-    # db.execute("INSERT INTO likes (user_id, post_id, post_user_id) VALUES (?, ?, ?)", session["user_id"], )
-    return "1"
+
+    liked = db.execute("SELECT * FROM likes WHERE user_id = ? AND post_id = ?", session["user_id"], request.args.get("post_id"))
+    if not liked :
+        db.execute("INSERT INTO likes (user_id, post_id) VALUES (?, ?)", session["user_id"], request.args.get("post_id"))
+        
+    db.execute("UPDATE posts SET likes = likes + 1 WHERE post_id = ?", request.args.get("post_id"))
+    like_count = db.execute("SELECT likes FROM posts WHERE post_id = ?", request.args.get("post_id"))[0]["likes"]
+    return str(like_count)
+
 
 @app.route("/dislikes", methods=["GET", "POST"])
 @login_required
 def dislikes():
-    return "0"
+    db.execute("DELETE FROM likes WHERE user_id = ? AND post_id = ?", session["user_id"], request.args.get("post_id"))
+    db.execute("UPDATE POSTS SET likes = likes - 1 WHERE post_id = ?", request.args.get("post_id"))
+
+    like_count = db.execute("SELECT likes FROM posts WHERE post_id = ?", request.args.get("post_id"))[0]["likes"]
+    return str(like_count)
+
+
+@app.route("/liked_data", methods=["GET", "POST"])
+@login_required
+def liked_data():
+    post_id = request.args.get("post_id")
+    print(post_id)
+
+    like_data = db.execute("SELECT * FROM likes WHERE user_id=? AND post_id = ?", session["user_id"], post_id)
+
+    if not like_data:
+        db.execute("UPDATE posts SET likes = likes + 1 WHERE post_id=?", post_id)
+        db.execute("INSERT INTO likes (user_id, post_id) VALUES(?, ?)", session["user_id"], post_id)
+
+        likes = db.execute("SELECT likes FROM posts WHERE post_id = ?", post_id)[0]["likes"]
+        print("what the fuck")
+        return f"like{likes}"
+    else:
+        db.execute("UPDATE posts SET likes = likes - 1 WHERE post_id=?", post_id)
+        db.execute("DELETE FROM likes WHERE user_id = ? AND post_id = ?", session["user_id"], post_id)
+
+        likes = db.execute("SELECT likes FROM posts WHERE post_id = ?", post_id)[0]["likes"]
+        print("motherfucker")
+        return f"dislike{likes}"
 
 
 @app.route("/logout")

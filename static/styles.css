@@ -194,12 +194,14 @@
     color: black;
 }
 .box-3-item-1 {
-    width: 75px;
+    width: 54px;
     height: 40px;
     display: flex;
-    justify-content: left;
+    justify-content:space-between;
     padding-left: 2px;
     padding-top: 2px;
+    flex-direction: row;
+    
 }
 
 .foot {

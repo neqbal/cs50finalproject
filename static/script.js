@@ -1,26 +1,19 @@
-function likecounter(url, post_id) {
+function like(clicked_id) {
   const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", url);
+  xhttp.open("GET", "http://127.0.0.1:5000/liked_data?post_id=" + clicked_id);
   xhttp.send();
   xhttp.onreadystatechange = (e) => {
-    document.getElementById("count" + post_id).innerHTML = xhttp.responseText;
+    let res = xhttp.responseText;
+    
+    if (res.slice(0,4) === "like") {
+      document.getElementById("like" + clicked_id).style.display = "none";
+      document.getElementById("dislike" + clicked_id).style.display = "block";
+      document.getElementById("count" + clicked_id).innerHTML=res.slice(4);
+    }
+    else {
+      document.getElementById("like" + clicked_id).style.display = "block";
+      document.getElementById("dislike" + clicked_id).style.display = "none";
+      document.getElementById("count" + clicked_id).innerHTML=res.slice(7);
+    }
   }
 }
-
-
-function like(clicked_id) {
-  document.getElementById(clicked_id).style.display="none";
-  document.getElementById("dislike" + clicked_id.slice(4)).style.display="block";
-
-  likecounter("http://127.0.0.1:5000/likes", clicked_id.slice(4));
-}
-  
-function dislike(clicked_id) {
-  document.getElementById("like" + clicked_id.slice(7)).style.display="block";
-  document.getElementById(clicked_id).style.display="none";
-
-  likecounter("http://127.0.0.1:5000/dislikes", clicked_id.slice(7));
-}
-
-
-

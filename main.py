@@ -32,7 +32,9 @@ cur.execute("CREATE UNIQUE INDEX username ON users(username)") """
 
 """ cur.execute('DELETE FROM posts WHERE username = "Joe Biden" ')"""
 
-
+""" cur.execute('ALTER TABLE posts ADD likes INTEGER') """
+cur.execute('UPDATE posts SET likes = 0')
+cur.execute('DELETE FROM likes')
 res=cur.execute('SELECT * FROM posts')
 for i in res:
     print(i)
