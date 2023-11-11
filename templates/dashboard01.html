@@ -16,9 +16,10 @@
                     </form>
                 </div>
             </div>
-            
                 <div class="top-item-2">
-                    <input class="search-bar" type="text" placeholder="Search..." name="search">
+                    <form action="/search" method="get">
+                        <input class="search-bar" type="text" placeholder="Search..." name="search">
+                    </form>
                 </div>
             <div class="top-item-3">
                 <button class="sort-by-btn">Layout</button>
@@ -79,10 +80,8 @@
         </div>
         {% endfor %}
     </div>
-{% endblock %}
 
-{% block foot%}
-    <div class="foot">
+    <div class="main-footer">
         <form action="/add" method="post">
         <div class="foot-container">
             <div class="message-box">

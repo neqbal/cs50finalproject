@@ -25,7 +25,9 @@
 .main-body {
     background-color:rgb(37, 35, 35);
     width: 100%;
-    height: max-content;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .main-top{
@@ -127,13 +129,17 @@
 }
 
 .main-middle {
+    background-color:rgb(37, 35, 35);
     width: 100%;
-    height: 650px;
+    max-height: 650px;
     display: flex;
     align-items: center;
     flex-direction: column;
     overflow-y: scroll;
-    scroll-snap-type: y-mandatory;
+    position: absolute;
+    top: 120px;
+    bottom: 55px;
+    
 }
 .main-middle-container {
     padding: 5px;
@@ -204,11 +210,15 @@
     
 }
 
-.foot {
+.main-footer {
     background-color:rgb(37, 35, 35);
-    height: 50px;
+    height: 55px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
     display: flex;
     justify-content: center;
+    margin: auto;
 }
 .foot-container {
     width: auto;

@@ -27,6 +27,7 @@ db = SQL("sqlite:///database.db")
 def helloworld():
     return redirect("/dashboard")
 
+
 @app.route("/register", methods = ["GET", "POST"])
 def register():
 
@@ -61,6 +62,7 @@ def register():
     else:
         return render_template("register.html")
         
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -103,6 +105,7 @@ def dashboard():
         for i in like:
             post_id.append(i["post_id"])
         print(post_id)
+        
         for i in post_data:
             if i["post_id"] in post_id:
                 i.update({"post_liked": "1"})
@@ -166,6 +169,29 @@ def liked_data():
         likes = db.execute("SELECT likes FROM posts WHERE post_id = ?", post_id)[0]["likes"]
         print("motherfucker")
         return f"dislike{likes}"
+
+
+@app.route("/search", methods=["POST","GET"])
+@login_required
+def search():
+    search_string=request.args.get("search")
+    post_data = db.execute("SELECT * FROM posts WHERE post LIKE ? ", '%' + search_string + '%')
+
+    like = db.execute("SELECT * FROM likes WHERE user_id=?", session["user_id"])
+    post_id=[]
+    for i in like:
+        post_id.append(i["post_id"])
+        print(post_id)
+        
+    for i in post_data:
+        if i["post_id"] in post_id:
+            i.update({"post_liked": "1"})
+        else:
+            i.update({"post_liked": "0"})
+        print(i)
+    return render_template("dashboard01.html", post_data=post_data)
+
+    print(post_data)
 
 
 @app.route("/logout")
