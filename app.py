@@ -6,7 +6,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from helpers import apology, login_required
 from datetime import datetime
 from cs50 import SQL
-import json
 
 
 thread=None
@@ -191,7 +190,32 @@ def search():
         print(i)
     return render_template("dashboard01.html", post_data=post_data)
 
+
+@app.route("/sort", methods=["GET", "POST"])
+@login_required
+def sort():
+    post_data = db.execute("SELECT * FROM posts")
+    like = db.execute("SELECT * FROM likes WHERE user_id=?", session["user_id"])
+    post_id=[]
+    for i in like:
+        post_id.append(i["post_id"])
+    print(post_id)
+    
+    for i in post_data:
+        if i["post_id"] in post_id:
+            i.update({"post_liked": "1"})
+        else:
+            i.update({"post_liked": "0"})
     print(post_data)
+    
+    sort_by=request.args.get("sort_by")
+
+    if sort_by=="liked" :
+        new_post_data=sorted(post_data, key=lambda d: d['likes'], reverse=True)
+    else:
+        new_post_data=sorted(post_data, key=lambda d: d['likes'])
+
+    return render_template("dashboard01.html", post_data=new_post_data)
 
 
 @app.route("/logout")
