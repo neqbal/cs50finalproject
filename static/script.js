@@ -18,3 +18,14 @@ function like(clicked_id) {
   }
 }
 
+
+function view(clicked_id) {
+  if (clicked_id === "Column") {
+    document.getElementById("middle-container").style.flexDirection="column";
+    console.log(clicked_id); 
+  }
+  else {
+    document.getElementById("middle-container").style.flexDirection="row";
+    console.log(clicked_id);
+  }
+}

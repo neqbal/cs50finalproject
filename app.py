@@ -217,6 +217,12 @@ def sort():
 
     return render_template("dashboard01.html", post_data=new_post_data)
 
+@app.route("/view", methods=["GET", "POST"])
+@login_required
+def view():
+    view_value=request.args.get("view_by")
+    
+
 
 @app.route("/logout")
 def logout():

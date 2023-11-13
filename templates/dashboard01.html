@@ -22,16 +22,14 @@
             <div class="top-item-3">
                 <button class="sort-by-btn">Layout</button>
                 <div class="sort-by-items">
-                    <form action="/view" method="post">
-                        <a type="submit" name="column">Column</a>
-                        <a type="submit" name="grid">Grid</a>
-                    </form>
+                    <a type="submit" id="Column" name="column" onclick="view(this.id)">Column</a>
+                    <a type="submit" id="Grid" name="grid" onclick="view(this.id)" >Grid</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="main-middle">
+    <div class="main-middle" id="middle-container">
         {% for i in post_data %}
         <div class="main-middle-container">
             <div class="main-middle-box-1">
