@@ -5,23 +5,23 @@
 {% endblock %}
 
 {% block main %}
-    <div class="main-top">
-        <div class="main-top-container">
-            <div class="top-item-1">
+     <div class="main-body-top">
+        <div class="main-body-top-container">
+            <div class="main-body-top-item-1">
                 <button class="sort-by-btn">Sort By</button>
                 <div class="sort-by-items">
                     <a href="/sort?sort_by=liked" name="sort_by" >Liked</a>
                     <a href="/sort?sort_by=disliked" name="sort_by">Disliked</a>
                 </div>
             </div>
-                <div class="top-item-2">
+                <div class="main-body-top-item-2">
                     <form action="/search" method="get">
                         <input class="search-bar" type="text" placeholder="Search..." name="search">
                     </form>
                 </div>
-            <div class="top-item-3">
-                <button class="sort-by-btn">Layout</button>
-                <div class="sort-by-items">
+            <div class="main-body-top-item-3">
+                <button class="layout-btn">Layout</button>
+                <div class="layout-items">
                     <a type="submit" id="Column" name="column" onclick="view(this.id)">Column</a>
                     <a type="submit" id="Grid" name="grid" onclick="view(this.id)" >Grid</a>
                 </div>
@@ -29,57 +29,59 @@
         </div>
     </div>
 
-    <div class="main-middle" id="middle-container">
-        {% for i in post_data %}
-        <div class="main-middle-container">
-            <div class="main-middle-box-1">
-                <div class="box-1-item-1">
-                    <a class="Name" style="color: black;">{{ i["name"] }}</a>
-                    <a class="username" style="color: black;">{{ "@" ~ i["username"] }}</a>
-                </div>
-            </div>
-            <div class="main-middle-box-2">
-                <p>{{ i["post"] }}</p>
-            </div>
-            <div class="main-middle-box-3">
-                <div class="box-3-item-1">
-                    <div class="like-btn" id="{{ i['post_id']}}" onclick='like(this.id)'>
-                        {% if i['post_liked'] == '1' %}
-                        <svg id="like{{ i["post_id"]}}" style="display: none; width: 30px; height: 30px;" xlmns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24">
-                            <path d="M6.28 3c3.236.001 4.973 3.491 5.72 5.031.75-1.547 2.469-5.021 
-                                5.726-5.021 2.058 0 4.274 1.309 4.274 4.182 0 3.442-4.744 7.851-10 13-5.258-5.151-10-9.559-10-13 
-                                0-2.676 1.965-4.193 4.28-4.192zm.001-2c-3.183 0-6.281 2.187-6.281 6.192 0 4.661 5.57 9.427 12 15.808 6.43-6.381 12-11.147 
-                                12-15.808 0-4.011-3.097-6.182-6.274-6.182-2.204 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248z"/>
-                        </svg>
-                        <svg id="dislike{{ i["post_id"]}}" style="display: block; width: 30px; height: 30px;" xlmns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> 
-                            <path d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 
-                                12-15.808 0-6.792-8.875-8.306-12-2.944z"/>
-                        </svg>
-                        {% else %}
-                        <svg id="like{{ i["post_id"]}}" style="display: block; width: 30px; height: 30px;" xlmns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24">
-                            <path d="M6.28 3c3.236.001 4.973 3.491 5.72 5.031.75-1.547 2.469-5.021 
-                                5.726-5.021 2.058 0 4.274 1.309 4.274 4.182 0 3.442-4.744 7.851-10 13-5.258-5.151-10-9.559-10-13 
-                                0-2.676 1.965-4.193 4.28-4.192zm.001-2c-3.183 0-6.281 2.187-6.281 6.192 0 4.661 5.57 9.427 12 15.808 6.43-6.381 12-11.147 
-                                12-15.808 0-4.011-3.097-6.182-6.274-6.182-2.204 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248z"/>
-                        </svg>
-                        <svg id="dislike{{ i["post_id"]}}" style="display: none; width: 30px; height: 30px;" xlmns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> 
-                            <path d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 
-                                12-15.808 0-6.792-8.875-8.306-12-2.944z"/>
-                        </svg>
-                        {% endif %}
-                    </div>
-                    <div class="like-count">
-                        <p id="count{{ i["post_id"]}}">{{ i["likes"]}}</p>
+     <div class="main-body-middle" id="middle-container">
+        <div class="main-body-middle-post-container">
+            {% for i in post_data %}
+            <div class="posts">
+                <div class="post-box-1">
+                    <div class="box-1-item-1">
+                        <a class="Name" style="color: rgb(0, 0, 0);">{{ i["name"] }}</a>
+                        <a class="username" style="color: rgb(255, 0, 0);">{{ "@" ~ i["username"] }}</a>
                     </div>
                 </div>
+                <div class="post-box-2">
+                    <p>{{ i["post"] }}</p>
+                </div>
+                <div class="post-box-3">
+                    <div class="box-3-item-1">
+                        <div class="like-btn" id="{{ i['post_id']}}" onclick='like(this.id)'>
+                            {% if i['post_liked'] == '1' %}
+                            <svg id="like{{ i["post_id"]}}" style="display: none; width: 30px; height: 30px;" xlmns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24">
+                                <path d="M6.28 3c3.236.001 4.973 3.491 5.72 5.031.75-1.547 2.469-5.021 
+                                    5.726-5.021 2.058 0 4.274 1.309 4.274 4.182 0 3.442-4.744 7.851-10 13-5.258-5.151-10-9.559-10-13 
+                                    0-2.676 1.965-4.193 4.28-4.192zm.001-2c-3.183 0-6.281 2.187-6.281 6.192 0 4.661 5.57 9.427 12 15.808 6.43-6.381 12-11.147 
+                                    12-15.808 0-4.011-3.097-6.182-6.274-6.182-2.204 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248z"/>
+                            </svg>
+                            <svg id="dislike{{ i["post_id"]}}" style="display: block; width: 30px; height: 30px;" xlmns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> 
+                                <path d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 
+                                    12-15.808 0-6.792-8.875-8.306-12-2.944z"/>
+                            </svg>
+                            {% else %}
+                            <svg id="like{{ i["post_id"]}}" style="display: block; width: 30px; height: 30px;" xlmns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24">
+                                <path d="M6.28 3c3.236.001 4.973 3.491 5.72 5.031.75-1.547 2.469-5.021 
+                                    5.726-5.021 2.058 0 4.274 1.309 4.274 4.182 0 3.442-4.744 7.851-10 13-5.258-5.151-10-9.559-10-13 
+                                    0-2.676 1.965-4.193 4.28-4.192zm.001-2c-3.183 0-6.281 2.187-6.281 6.192 0 4.661 5.57 9.427 12 15.808 6.43-6.381 12-11.147 
+                                    12-15.808 0-4.011-3.097-6.182-6.274-6.182-2.204 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248z"/>
+                            </svg>
+                            <svg id="dislike{{ i["post_id"]}}" style="display: none; width: 30px; height: 30px;" xlmns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> 
+                                <path d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 
+                                    12-15.808 0-6.792-8.875-8.306-12-2.944z"/>
+                            </svg>
+                            {% endif %}
+                        </div>
+                        <div class="like-count">
+                            <p id="count{{ i["post_id"]}}">{{ i["likes"]}}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 
-    <div class="main-footer">
+    <div class="main-body-last">
         <form action="/add" method="post">
-        <div class="foot-container">
+        <div class="message-container">
             <div class="message-box">
                 <input type="textarea" autocomplete="off" font-size="16px" class="message-box" placeholder="Type something..." name="message">
             </div>
@@ -88,5 +90,5 @@
             </div>
         </div>
         </form>
-    </div>
+    </div> 
 {% endblock %}

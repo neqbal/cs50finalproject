@@ -34,8 +34,8 @@ cur.execute('DELETE FROM posts WHERE post_id IN (10, 11) ')
 
 """ cur.execute('ALTER TABLE posts ADD likes INTEGER') """
 """ cur.execute('UPDATE posts SET likes = 0') """
-cur.execute('DELETE FROM posts WHERE post_id IN (2,3,4)')
-res=cur.execute('SELECT * FROM posts')
+#cur.execute('DELETE FROM posts WHERE post_id IN (2,3,4)')
+res=cur.execute('SELECT * FROM users')
 for i in res:
     print(i)
 
