@@ -31,7 +31,7 @@
 
      <div class="main-body-middle" id="middle-container">
         <div class="main-body-middle-post-container">
-            {% for i in post_data %}
+          {% for i in post_data %}
             <div class="posts">
                 <div class="post-box-1">
                     <div class="box-1-item-1">
@@ -80,15 +80,13 @@
     </div>
 
     <div class="main-body-last">
-        <form action="/add" method="post">
-        <div class="message-container">
+        <form action="/add" method="post" class="message-container">
             <div class="message-box">
                 <input type="textarea" autocomplete="off" font-size="16px" class="message-box" placeholder="Type something..." name="message">
             </div>
             <div class="post-btn">
                 <button type="submit" class="post-btn">Post</button>
             </div>
-        </div>
         </form>
     </div> 
 {% endblock %}

@@ -54,12 +54,12 @@ html body {
 
 .main-body-top-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: row;
     gap: 10px;
-    width: auto;
-    min-width: 550px;
+    width: 500px;
+    max-width: 75%;
+    padding: 10px;
     height: 60px;
     background-color: #cb0000;
     border-radius: 30px;
@@ -150,12 +150,11 @@ html body {
 }
 
 .main-body-middle-post-container {
-    min-width: 500px;
-    max-width: 500px;
+    width: 500px;
+    max-width: 75%;
     height: 100%; 
     overflow-y: scroll;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding: 10px;
 }
 /* main body middle */
 
@@ -198,17 +197,17 @@ html body {
 
 /* post box */
 .main-body-last {
-    width: 100%;
+    width: calc(100vw - 7px);
     height: 60px;
     display: flex;
     justify-content: center;
 }
 .message-container {
-    padding: 5px;
-    width: 550px;
+    padding: 10px;
+    width: 500px;
+    max-width: 75%;
     height: 60px;
     display: flex;
-    justify-content: space-between;
     gap: 10px;
     align-items: center;
     flex-direction: row;
@@ -217,7 +216,7 @@ html body {
 }
 
 .message-box {
-    width: 100%;
+    width: 90%;
     height: 34px;
     border: none;
     outline: none;
