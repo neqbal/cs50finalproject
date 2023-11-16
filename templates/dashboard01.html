@@ -32,16 +32,18 @@
      <div class="main-body-middle" id="middle-container">
         <div class="main-body-middle-post-container">
           {% for i in post_data %}
-            <div class="posts">
+            <div class="posts" id="post{{ i["post_id"] }}">
                 <div class="post-box-1">
                     <div class="box-1-item-1">
-                        <a class="Name" style="color: rgb(0, 0, 0);">{{ i["name"] }}</a>
-                        <a class="username" style="color: rgb(255, 0, 0);">{{ "@" ~ i["username"] }}</a>
+                        <p class="Name" style="color: rgb(0, 0, 0);">{{ i["name"] }}</p>
+                        <p class="username" style="color: rgb(255, 0, 0);">{{ "@" ~ i["username"] }}</p>
                     </div>
                 </div>
-                <div class="post-box-2">
-                    <p>{{ i["post"] }}</p>
-                </div>
+                <a href="/comments?post_id={{ i["post_id"] }}" style="color: black; text-decoration: none;">
+                    <div class="post-box-2" id="{{ i["post_id"] }}">
+                        <p>{{ i["post"] }}</p>
+                    </div>
+                </a>
                 <div class="post-box-3">
                     <div class="box-3-item-1">
                         <div class="like-btn" id="{{ i['post_id']}}" onclick='like(this.id)'>

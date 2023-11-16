@@ -14,7 +14,7 @@ app.config["SESSION_PERMANENT"]="false"
 app.config["SESSION_TYPE"]="filesystem"
 Session(app)
 
-db = SQL("sqlite:///database.db")
+db = SQL("sqlite:///database/database.db")
 
 @app.route("/")
 @login_required
@@ -82,7 +82,7 @@ def login():
     else:
         return render_template("login.html")
     
-    
+
 
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
@@ -210,6 +210,25 @@ def sort():
         new_post_data=sorted(post_data, key=lambda d: d['likes'])
 
     return render_template("dashboard01.html", post_data=new_post_data)
+
+
+@app.route("/comments", methods=["POST", "GET"])
+@login_required
+def comment():
+    if request.method == "GET":
+        post_id=request.args.get("post_id")
+        post = db.execute("SELECT * FROM posts WHERE post_id=?", post_id)
+        liked = db.execute("SELECT * FROM likes WHERE user_id=? AND post_id=?", session["user_id"], post_id)
+        if not liked:
+            count=0
+        else:
+            count=1
+        print(count)
+        return render_template("post.html", post=post, count=count)
+    else:
+        print(request.form.get("post_id"))
+        db.execute("INSERT INTO comments (post_id, comment, user_id, comment_time) VALUES (?, ?, ?, ?)", request.form.get("post_id"), request.form.get("comment"), session["user_id"], datetime.now())
+        return render_template("post.html")
 
 
 @app.route("/logout")

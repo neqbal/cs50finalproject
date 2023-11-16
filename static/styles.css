@@ -164,7 +164,7 @@ html body {
     width: 100%;
     height: max-content;
     margin-bottom: 10px;
-    border-radius: 20px;;
+    border-radius: 20px;
 }
 
 .post-box-1 {
@@ -192,6 +192,13 @@ html body {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+}
+
+.box-1-item-1 {
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    gap: 10px;
 }
 /* posts */
 
@@ -228,5 +235,9 @@ html body {
     border: none;
     color: black;
     background: none;
+}
+
+.posts a {
+    display: block;
 }
 /* post box */
