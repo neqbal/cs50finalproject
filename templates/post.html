@@ -21,7 +21,7 @@
                         <div class="post-box-1">
                             <div class="box-1-item-1">
                                 <p class="Name" style="color: rgb(0, 0, 0);">{{ i["name"] }}</p>
-                                <p class="username" style="color: rgb(255, 0, 0);">{{ i["username"] }}</p>
+                                <p class="username" style="color: rgb(255, 0, 0);">{{ "@" ~ i["username"] }}</p>
                             </div>
                         </div>
                         <div class="post-box-2">
@@ -65,11 +65,24 @@
             </div>
             <div class="container-2">
                 <div class="comment-container">
-                    <div class="comments">
+                    {% for j in reply %}
+                    <div class="comment">
+                        <div class="comment-box-1">
+                            <div class="comment-box-1-item-1">
+                                <p class="Name" style="color: black;">{{ j["name"] }}</p>
+                                <p class="username" style="color: black;">{{ "@" ~ j["username"] }}</p>
+                            </div>
+                        </div>
+                        <div class="comment-box-2">
+                            <div class="comment-box-2-item-2">
+                                <p class="reply" style="color: black">{{ j["comment"] }}</p>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
                 <div class="comenter-container">
-                    <form action="/comments" method="post" class="commenter">
+                    <form action="/comment" method="post" class="commenter">
                         <div class="comment-box">
                             <input type="textarea" autocomplete="off" font-size="16px" class="comment-box" placeholder="Type something..." name="comment">
                         </div>

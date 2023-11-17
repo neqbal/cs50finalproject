@@ -212,23 +212,34 @@ def sort():
     return render_template("dashboard01.html", post_data=new_post_data)
 
 
-@app.route("/comments", methods=["POST", "GET"])
+@app.route("/viewposts", methods=["POST", "GET"])
+@login_required
+def viewpost():
+    post_id=request.args.get("post_id")
+    post = db.execute("SELECT * FROM posts WHERE post_id=?", post_id)
+    liked = db.execute("SELECT * FROM likes WHERE user_id=? AND post_id=?", session["user_id"], post_id)
+    reply=db.execute("SELECT * FROM comments WHERE post_id=?", post_id)
+
+    for i in reply:
+        i["name"]=db.execute("SELECT name FROM users WHERE id=?", i["user_id"])[0]["name"]
+        i["username"]=db.execute("SELECT username FROM users WHERE id=?", i["user_id"])[0]["username"]
+
+    print(reply)
+    if not liked:
+        count=0
+    else:
+        count=1
+    print(count)
+    return render_template("post.html", post=post, count=count, reply=reply)
+
+
+
+@app.route("/comment", methods=["GET", "POST"])
 @login_required
 def comment():
-    if request.method == "GET":
-        post_id=request.args.get("post_id")
-        post = db.execute("SELECT * FROM posts WHERE post_id=?", post_id)
-        liked = db.execute("SELECT * FROM likes WHERE user_id=? AND post_id=?", session["user_id"], post_id)
-        if not liked:
-            count=0
-        else:
-            count=1
-        print(count)
-        return render_template("post.html", post=post, count=count)
-    else:
-        print(request.form.get("post_id"))
-        db.execute("INSERT INTO comments (post_id, comment, user_id, comment_time) VALUES (?, ?, ?, ?)", request.form.get("post_id"), request.form.get("comment"), session["user_id"], datetime.now())
-        return render_template("post.html")
+    post_id=request.form.get("post_id")
+    db.execute("INSERT INTO comments (post_id, comment, user_id, comment_time) VALUES (?, ?, ?, ?)", request.form.get("post_id"), request.form.get("comment"), session["user_id"], datetime.now())
+    return redirect(f"/viewposts?post_id={post_id}")
 
 
 @app.route("/logout")
