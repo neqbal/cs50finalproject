@@ -241,6 +241,48 @@ def comment():
     db.execute("INSERT INTO comments (post_id, comment, user_id, comment_time) VALUES (?, ?, ?, ?)", request.form.get("post_id"), request.form.get("comment"), session["user_id"], datetime.now())
     return redirect(f"/viewposts?post_id={post_id}")
 
+@app.route("/myprofile", methods=["GET", "POST"])
+@login_required
+def myprofile():
+    choice=request.args.get("myprofile")
+    print(choice)
+    if choice == "myposts":
+        post_data = db.execute("SELECT * FROM posts WHERE username=?", session["username"])
+        like = db.execute("SELECT * FROM likes WHERE user_id=?", session["user_id"])
+        post_id=[]
+        for i in like:
+            post_id.append(i["post_id"])
+        print(post_id)
+        
+        for i in post_data:
+            if i["post_id"] in post_id:
+                i.update({"post_liked": "1"})
+            else:
+                i.update({"post_liked": "0"})
+        return render_template("myprofile.html", post_data=post_data)
+    
+    if choice == "likedposts":
+        post_data = db.execute("SELECT * FROM posts")
+        like = db.execute("SELECT * FROM likes WHERE user_id=?", session["user_id"])
+        post_id=[]
+        for i in like:
+            post_id.append(i["post_id"])
+        print(post_id)
+        
+        for i in post_data:
+            if i["post_id"] in post_id:
+                i.update({"post_liked": "1"})
+            else:
+                i.update({"post_liked": "0"})
+        
+        liked_post=[]
+        for i in post_data:
+            if i["post_liked"] == "1":
+                liked_post.append(i)
+    
+        return render_template("myprofile.html", post_data=liked_post)
+    return render_template("myprofile.html")
+
 
 @app.route("/logout")
 def logout():

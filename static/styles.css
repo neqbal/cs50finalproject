@@ -241,3 +241,18 @@ html body {
     display: block;
 }
 /* post box */
+
+/*myprofile*/
+.myposts,
+.likedposts,
+.comments {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+/*myprofile*/
