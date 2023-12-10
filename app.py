@@ -281,6 +281,11 @@ def myprofile():
                 liked_post.append(i)
     
         return render_template("myprofile.html", post_data=liked_post)
+    if choice == "comments":
+        post_data = db.execute("SELECT * FROM comments WHERE user_id=?", session["user_id"])
+        print(post_data)
+        return render_template("myprofile.html", comment_data=post_data)
+        print("asdasdasd")
     return render_template("myprofile.html")
 
 

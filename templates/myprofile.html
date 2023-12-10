@@ -20,8 +20,9 @@
     </div>
 
     <div class="main-body-middle" id="middle-container">
+        {% if post_data is defined %}
         <div class="main-body-middle-post-container">
-          {% for i in post_data %}
+            {% for i in post_data %}
             <div class="posts" id="post{{ i["post_id"] }}">
                 <div class="post-box-1">
                     <div class="box-1-item-1">
@@ -69,5 +70,24 @@
             </div>
             {% endfor %}
         </div>
+        {% else %}
+        <div class="comment-container">
+            {% for j in comment_data %}
+            <div class="comment">
+                <div class="comment-box-1">
+                    <div class="comment-box-1-item-1">
+                        <p class="Name" style="color: black;">{{ j["name"] }}</p>
+                        <p class="username" style="color: black;">{{ "@" ~ j["username"] }}</p>
+                    </div>
+                </div>
+                <div class="comment-box-2">
+                    <div class="comment-box-2-item-2">
+                        <p class="reply" style="color: black">{{ j["comment"] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
 {% endblock %}
