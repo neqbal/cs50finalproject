@@ -21,9 +21,10 @@
                     <a class="nav-item" href="/">Home</a>
                     <a class="nav-item" href="/myprofile?myprofile=myposts">My Profile</a>
                     <a class="nav-item" href="/logout">Logout</a>
-                    {% else %}
+                    {% elif session["user_id"] is defined %}
                     <a class="nav-item" href="/register">Register</a>
                     <a class="nav-item" href="/login">Login</a>
+                    {% else %}
                     {% endif %}
                 </div>
             </div>

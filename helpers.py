@@ -2,7 +2,7 @@ from flask import render_template, session, redirect
 from functools import wraps
 
 def apology(message):
-    return render_template("apology.html")
+    return render_template("apology.py.jinja", message=message)
 
 def login_required(f):
     @wraps(f)
@@ -12,4 +12,3 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
-
