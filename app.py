@@ -153,14 +153,12 @@ def liked_data():
         db.execute("INSERT INTO likes (user_id, post_id) VALUES(?, ?)", session["user_id"], post_id)
 
         likes = db.execute("SELECT likes FROM posts WHERE post_id = ?", post_id)[0]["likes"]
-        print("what the fuck")
         return f"like{likes}"
     else:
         db.execute("UPDATE posts SET likes = likes - 1 WHERE post_id=?", post_id)
         db.execute("DELETE FROM likes WHERE user_id = ? AND post_id = ?", session["user_id"], post_id)
 
         likes = db.execute("SELECT likes FROM posts WHERE post_id = ?", post_id)[0]["likes"]
-        print("motherfucker")
         return f"dislike{likes}"
 
 
@@ -252,13 +250,14 @@ def myprofile():
         post_id=[]
         for i in like:
             post_id.append(i["post_id"])
-        print(post_id)
+        
         
         for i in post_data:
             if i["post_id"] in post_id:
                 i.update({"post_liked": "1"})
             else:
                 i.update({"post_liked": "0"})
+        print(post_data)
         return render_template("myprofile.html", post_data=post_data)
     
     if choice == "likedposts":
@@ -282,12 +281,23 @@ def myprofile():
     
         return render_template("myprofile.html", post_data=liked_post)
     if choice == "comments":
-        post_data = db.execute("SELECT * FROM comments WHERE user_id=?", session["user_id"])
-        print(post_data)
-        return render_template("myprofile.html", comment_data=post_data)
-        print("asdasdasd")
+        comment_data = db.execute("SELECT * FROM comments WHERE user_id=?", session["user_id"])
+        user_data=db.execute("SELECT name, username FROM users WHERE id=?", session["user_id"])[0]
+
+        return render_template("myprofile.html", comment_data=comment_data, username=user_data["username"], name=user_data["name"])
     return render_template("myprofile.html")
 
+@app.route("/delete", methods=["GET", "POST"])
+@login_required
+def delete():
+    choice=request.args.get("id")
+    if choice[0:3] == "cmt":
+        db.execute("DELETE FROM comments WHERE comment_id=?", choice[3:])
+    else:
+        db.execute("DELETE FROM posts WHERE post_id=?", choice[4:])
+    
+    print(choice)
+    return "delete"
 
 @app.route("/logout")
 def logout():

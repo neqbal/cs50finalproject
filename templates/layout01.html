@@ -19,7 +19,7 @@
                 <div class="page-items">
                     {% if session["user_id"] %}
                     <a class="nav-item" href="/">Home</a>
-                    <a class="nav-item" href="/myprofile">My Profile</a>
+                    <a class="nav-item" href="/myprofile?myprofile=myposts">My Profile</a>
                     <a class="nav-item" href="/logout">Logout</a>
                     {% else %}
                     <a class="nav-item" href="/register">Register</a>

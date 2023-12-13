@@ -18,6 +18,25 @@ function like(clicked_id) {
   }
 }
 
+function del(clicked_id) {
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "http://127.0.0.1:5000/delete?id=" + clicked_id);
+  xhttp.send();
+  xhttp.onreadystatechange = (e) => {
+    let res=xhttp.responseText;
+
+    if(res === "delete") {
+      if(clicked_id.slice(0,3) === "cmt") {
+        console.log(clicked_id.slice(0,3));
+        window.location.replace("http://127.0.0.1:5000/myprofile?myprofile=" + "comments" );
+      }
+      else {
+        window.location.replace("http://127.0.0.1:5000/myprofile?myprofile=" + "myposts");
+      }
+    }
+  }
+}
+
 
 function view(clicked_id) {
   if (clicked_id === "Column") {
