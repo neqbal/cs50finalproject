@@ -52,7 +52,7 @@ def register():
 
         return redirect("/login")
     else:
-        return render_template("register.html")
+        return render_template("register.py.jinja")
         
 
 @app.route("/login", methods=["GET", "POST"])
@@ -80,7 +80,7 @@ def login():
 
         return redirect("/dashboard")
     else:
-        return render_template("login.html")
+        return render_template("login.py.jinja.j2")
     
 
 
@@ -89,7 +89,7 @@ def login():
 def dashboard():
     if request.method=="POST":
 
-        return render_template("dashboard01.html", username=session["username"], )
+        return render_template("dashboard01.py.jinja", username=session["username"], )
     else:
         print("asdasdasdasdasd")
         post_data = db.execute("SELECT * FROM posts")
@@ -106,7 +106,7 @@ def dashboard():
                 i.update({"post_liked": "0"})
             print(i)
         
-        return render_template("dashboard01.html", post_data=post_data)
+        return render_template("dashboard01.py.jinja", post_data=post_data)
 
 
 @app.route("/add", methods=["POST"])
@@ -180,7 +180,7 @@ def search():
         else:
             i.update({"post_liked": "0"})
         print(i)
-    return render_template("dashboard01.html", post_data=post_data)
+    return render_template("dashboard01.py.jinja", post_data=post_data)
 
 
 @app.route("/sort", methods=["GET", "POST"])
@@ -207,7 +207,7 @@ def sort():
     else:
         new_post_data=sorted(post_data, key=lambda d: d['likes'])
 
-    return render_template("dashboard01.html", post_data=new_post_data)
+    return render_template("dashboard01.py.jinja", post_data=new_post_data)
 
 
 @app.route("/viewposts", methods=["POST", "GET"])
@@ -228,7 +228,7 @@ def viewpost():
     else:
         count=1
     print(count)
-    return render_template("post.html", post=post, count=count, reply=reply)
+    return render_template("post.py.jinja", post=post, count=count, reply=reply)
 
 
 
@@ -258,7 +258,7 @@ def myprofile():
             else:
                 i.update({"post_liked": "0"})
         print(post_data)
-        return render_template("myprofile.html", post_data=post_data)
+        return render_template("myprofile.py.jinja", post_data=post_data)
     
     if choice == "likedposts":
         post_data = db.execute("SELECT * FROM posts")
@@ -279,13 +279,13 @@ def myprofile():
             if i["post_liked"] == "1":
                 liked_post.append(i)
     
-        return render_template("myprofile.html", post_data=liked_post)
+        return render_template("myprofile.py.jinja", post_data=liked_post)
     if choice == "comments":
         comment_data = db.execute("SELECT * FROM comments WHERE user_id=?", session["user_id"])
         user_data=db.execute("SELECT name, username FROM users WHERE id=?", session["user_id"])[0]
 
-        return render_template("myprofile.html", comment_data=comment_data, username=user_data["username"], name=user_data["name"])
-    return render_template("myprofile.html")
+        return render_template("myprofile.py.jinja", comment_data=comment_data, username=user_data["username"], name=user_data["name"])
+    return render_template("myprofile.py.jinja")
 
 @app.route("/delete", methods=["GET", "POST"])
 @login_required

@@ -1,4 +1,4 @@
-{% extends "layout01.html" %}
+{% extends "layout01.py.jinja" %}
 
 {% block title %}
     Dashboard
@@ -14,17 +14,10 @@
                     <a href="/sort?sort_by=disliked" name="sort_by">Disliked</a>
                 </div>
             </div>
-                <div class="main-body-top-item-2">
-                    <form action="/search" method="get">
-                        <input class="search-bar" type="text" placeholder="Search..." name="search">
-                    </form>
-                </div>
-            <div class="main-body-top-item-3">
-                <button class="layout-btn">Layout</button>
-                <div class="layout-items">
-                    <a type="submit" id="Column" name="column" onclick="view(this.id)">Column</a>
-                    <a type="submit" id="Grid" name="grid" onclick="view(this.id)" >Grid</a>
-                </div>
+            <div class="main-body-top-item-2">
+                <form action="/search" method="get">
+                    <input class="search-bar" type="text" placeholder="Search..." name="search">
+                </form>
             </div>
         </div>
     </div>
