@@ -304,7 +304,6 @@ def delete():
         db.execute("DELETE FROM likes WHERE post_id=?", choice[4:])
         db.execute("DELETE FROM comments WHERE post_id=?", choice[4:])
 
-    
     return "delete"
 
 @app.route("/logout")
