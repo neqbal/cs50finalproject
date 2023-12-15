@@ -47,7 +47,7 @@ html body {
     border-radius: 10px;
     background-color: white;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin: 4px 0px 0px 0px;
 
 }

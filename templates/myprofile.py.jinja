@@ -6,6 +6,10 @@
 
 {% block main %}
      <div class="main-body-top">
+        <div class="user-name" style="display: flex; flex-direction: row; align-items: center; padding-left: 2px;" >
+            <p class="Name" style="color: black; padding: 3px 0px 3px 3px;">{{ name["name"] }}</p>
+            <p class="username" style="color: black; padding: 3px 0px 3px 3px;">{{ "@" ~ name["username"] }}</p>
+        </div>
         <div class="main-body-top-container">
             <div class="myposts">
                 <a href="/myprofile?myprofile=myposts">My posts</a>
@@ -17,6 +21,7 @@
                <a href="/myprofile?myprofile=comments">Comments</a>
             </div>
         </div>
+        <div class="temp" style="width: 64px;" ></div>
     </div>
 
     <div class="main-body-middle" id="middle-container">

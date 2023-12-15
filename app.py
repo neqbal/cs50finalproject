@@ -238,7 +238,9 @@ def comment():
 def myprofile():
 
     choice=request.args.get("myprofile")
-    
+    name=db.execute("SELECT name, username FROM users WHERE id=?", session["user_id"]);
+    print(name)
+
     if choice == "myposts":
         
         #getting the post data along with like and dislike 
@@ -255,7 +257,7 @@ def myprofile():
             else:
                 i.update({"post_liked": "0"})
         
-        return render_template("myprofile.py.jinja", post_data=post_data)
+        return render_template("myprofile.py.jinja", post_data=post_data, name=name[0])
     
     if choice == "likedposts":
 
@@ -278,7 +280,7 @@ def myprofile():
             if i["post_liked"] == "1":
                 liked_post.append(i)
     
-        return render_template("myprofile.py.jinja", post_data=liked_post)
+        return render_template("myprofile.py.jinja", post_data=liked_post, name=name)
     
     if choice == "comments":
 
