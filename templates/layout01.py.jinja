@@ -18,10 +18,10 @@
             <div class="page-container">
                 <div class="page-items">
                     {% if session["user_id"] %}
-                    <a class="nav-item" href="/">Home</a>
+                    <a class="nav-item" href="/dashboard">Home</a>
                     <a class="nav-item" href="/myprofile?myprofile=myposts">My Profile</a>
                     <a class="nav-item" href="/logout">Logout</a>
-                    {% elif session["user_id"] is defined %}
+                    {% elif session["user_id"] is not defined %}
                     <a class="nav-item" href="/register">Register</a>
                     <a class="nav-item" href="/login">Login</a>
                     {% else %}

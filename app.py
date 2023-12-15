@@ -91,33 +91,28 @@ def login():
         return render_template("login.py.jinja")
     
 
-
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
 
-    if request.method=="POST":
-        return render_template("dashboard01.py.jinja", username=session["username"], )
+    #getting all the posts
+    post_data = db.execute("SELECT * FROM posts")
+
+    #getting all the current user liked post data
+    like = db.execute("SELECT * FROM likes WHERE user_id=?", session["user_id"])
+    post_id=[]
+
+    for i in like:
+        post_id.append(i["post_id"])
     
-    else:
-        #getting all the posts
-        post_data = db.execute("SELECT * FROM posts")
-
-        #getting all the current user liked post data
-        like = db.execute("SELECT * FROM likes WHERE user_id=?", session["user_id"])
-        post_id=[]
-
-        for i in like:
-            post_id.append(i["post_id"])
+    #checking which post is liked by the user
+    for i in post_data:
+        if i["post_id"] in post_id:
+            i.update({"post_liked": "1"})
+        else:
+            i.update({"post_liked": "0"})
         
-        #checking which post is liked by the user
-        for i in post_data:
-            if i["post_id"] in post_id:
-                i.update({"post_liked": "1"})
-            else:
-                i.update({"post_liked": "0"})
-            
-        return render_template("dashboard01.py.jinja", post_data=post_data)
+    return render_template("dashboard01.py.jinja", post_data=post_data)
 
 
 @app.route("/add", methods=["POST"])
@@ -309,6 +304,7 @@ def delete():
     return "delete"
 
 @app.route("/logout")
+@login_required
 def logout():
     session.clear()
-    return redirect("/login")
+    return redirect("/")
