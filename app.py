@@ -280,7 +280,7 @@ def myprofile():
             if i["post_liked"] == "1":
                 liked_post.append(i)
     
-        return render_template("myprofile.py.jinja", post_data=liked_post, name=name)
+        return render_template("myprofile.py.jinja", post_data=liked_post, name=name[0])
     
     if choice == "comments":
 
@@ -288,7 +288,7 @@ def myprofile():
         comment_data = db.execute("SELECT * FROM comments WHERE user_id=?", session["user_id"])
         user_data=db.execute("SELECT name, username FROM users WHERE id=?", session["user_id"])[0]
 
-        return render_template("myprofile.py.jinja", comment_data=comment_data, username=user_data["username"], name=user_data["name"])
+        return render_template("myprofile.py.jinja", comment_data=comment_data, name=name[0])
     return render_template("myprofile.py.jinja")
 
 @app.route("/delete", methods=["GET", "POST"])
@@ -301,8 +301,10 @@ def delete():
         db.execute("DELETE FROM comments WHERE comment_id=?", choice[3:])
     else:
         db.execute("DELETE FROM posts WHERE post_id=?", choice[4:])
+        db.execute("DELETE FROM likes WHERE post_id=?", choice[4:])
+        db.execute("DELETE FROM comments WHERE post_id=?", choice[4:])
+
     
-    print(choice)
     return "delete"
 
 @app.route("/logout")

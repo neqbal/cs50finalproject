@@ -1,7 +1,7 @@
 {% extends "layout01.py.jinja" %}
 
 {% block title %}
-    My Profile
+    AlmostTwiter/My Profile
 {% endblock %}
 
 {% block main %}
@@ -34,7 +34,8 @@
                         <p class="Name" style="color: rgb(0, 0, 0);">{{ i["name"] }}</p>
                         <p class="username" style="color: rgb(255, 0, 0);">{{ "@" ~ i["username"] }}</p>
                     </div>
-                    <div class="box-2-item-2" id="post{{ i["post_id"] }}" onclick='del(this.id)' style>
+                    <div class="box-2-item-2" id="post{{ i["post_id"] }}" onclick='del(this.id)'>
+                        {% if i["name"] == name["name"] %}
                         <svg id="post{{ i["post_id"] }}" style="display: block; width: 20px; height: 20px;" xlmns="http://www.w3.org/2000/svg" viewBox="0 0 408.483 408.483">
                             <g>
                                 <path d="M87.748,388.784c0.461,11.01,9.521,19.699,20.539,19.699h191.911c11.018,0,20.078-8.689,20.539-19.699l13.705-289.316
@@ -47,6 +48,7 @@
                                     c-7.125,0-12.9,5.776-12.9,12.901V74.47h304.451V33.944C356.467,26.819,350.692,21.043,343.567,21.043z"/>
                             </g>
                         </svg>
+                        {% endif %}
                     </div>
                 </div>
                 <a href="/viewposts?post_id={{ i["post_id"] }}" style="color: black; text-decoration: none;">
@@ -95,8 +97,8 @@
             <div class="comment">
                 <div class="comment-box-1">
                     <div class="comment-box-1-item-1">
-                        <p class="Name" style="color: black;">{{ name }}</p>
-                        <p class="username" style="color: black;">{{ "@" ~ username }}</p>
+                        <p class="Name" style="color: black;">{{ name["name"] }}</p>
+                        <p class="username" style="color: black;">{{ "@" ~ name["username"] }}</p>
                     </div>
                     <div class="box-2-item-2" id="cmt{{ j["comment_id"] }}" onclick='del(this.id)'>
                         <svg id="post{{ j["comment_id"] }}" style="display: block; width: 20px; height: 20px;" xlmns="http://www.w3.org/2000/svg" viewBox="0 0 408.483 408.483">
